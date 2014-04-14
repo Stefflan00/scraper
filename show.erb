@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Shows</title>
+    <script type="text/javascript" charset="utf-8" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js">
+    </script>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    hello world
+
+    <table class="table table-striped table-hover .table-responsive">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Time</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @concerts.each do |concert| %>
+
+          <tr>
+          <% price = concert.at_css('.price-range') %>
+          <% if !price.nil? %>
+
+          <td><%= concert.at_css('.dates').text %></td>
+          <td><%= concert.at_css('.headliners').text %></td>
+            <% if !concert.at_css('.doors').nil? %>
+              <td><%= concert.at_css('.doors').text %></td>
+            <% else %>
+              <td><%= concert.at_css('.dtstart').text %></td>
+            <% end %>
+          <td><%= price.text %></td>
+          <td><%= concert.at_css('.ticket-link a')%></td>
+          <% else %>
+          <td><%= concert.at_css('.dates').text %></td>
+          <td><del><%= concert.at_css('.headliners').text %><del></td>
+          <% if !concert.at_css('.doors').nil? %>
+            <td><%= concert.at_css('.doors').text %></td>
+          <% else %>
+            <td><%= concert.at_css('.dtstart').text %></td>
+          <% end %>
+          <td>SOLD OUT</td>
+          <td></td>
+          <% end %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </body>
+</html>
